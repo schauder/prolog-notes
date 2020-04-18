@@ -93,6 +93,8 @@ Until you realize `con(1, 4)` is not `true`
 
 Does not bind the newly introduced variable to anything, nor does it check if it can be bound to anything.
 For this one needs an extra `con(A, B)`.
+The `con` in `X = con(A, B),` has nothing to do with the facts stated as `con(1, 2)` and so on.
+We can replace the line with `X = go(A, B),`
 
 The complete program now looks like this:
 
@@ -118,3 +120,7 @@ path(A, C, [X | XS]) :-
   path(B, C, XS),
   not(member(X, XS)).
 ```
+
+### TODO.
+ * get a better understanding of the terms "unification" and "matching". I'm not using them correctly.
+ 
