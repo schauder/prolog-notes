@@ -1,7 +1,3 @@
-section(X) :-
-  integer(X),
-  X < 400,
-  X > 0.
 
 con(1, 2).
 con(1, 3).
@@ -20,5 +16,6 @@ path(A, B, []) :-
 
 path(A, C, [X | XS]) :-
   X = con(A, B),
+  con(A, B),
   path(B, C, XS),
   not(member(X, XS)).
