@@ -15,11 +15,10 @@ is_path([X|[Y|YS]]) :-
   con(X, Y),
   is_path([Y|YS]).
 
-path(A, B, [X]) :-
-  con(A, B),
-  X = con(A, B).
+path(A, B, []) :-
+  con(A, B).
 
-path(A, B, [X | XS]) :-
-  X = con(A, M),
-  not(member(X, XS)),
-  path(M, B, XS).
+path(A, C, [X | XS]) :-
+  X = con(A, B),
+  path(B, C, XS),
+  not(member(X, XS)).
