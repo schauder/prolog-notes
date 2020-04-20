@@ -12,10 +12,10 @@ my_last(X, [_|YS]) :-
 test(empty_list, fail) :-
   my_last(_, []).
 
-test(full_list, true(X = e), nodet) :-
+test(full_list, true(X = e)) :-
   my_last(X, [b, c, d, e]).
 
-test(finds_lists_with_trailing_constant, true(L = [_, _, _, a]), nodet) :-
+test(finds_lists_with_trailing_constant, true(L = [_, _, _, a])) :-
   length(L, 4),
   my_last(a, L).
 
@@ -37,30 +37,36 @@ test(empty_list, fail) :-
 test(single_element_list, fail) :-
   second_to_last(_, [a]).
 
-test(two_element_list, true(X = a), nodet) :-
+test(two_element_list, true(X = a)) :-
   second_to_last(X, [a, b]).
 
-test(finds_lists_with_second_to_last_constant, true(L = [_, _, a, b]), nodet) :-
+test(finds_lists_with_second_to_last_constant, true(L = [_, _, a, b])) :-
   length(L, 4),
   second_to_last(a, L).
 
 :- end_tests(problems_99_2_second_to_last).
 
 % The first element of a one element list is the element.
-% The n-th element of a longer list is the n-1 element of a list without the head.
-% Easy.
+% The n-th element of a longer list is the n-1 element of a list without the head if n > 0.
 
-element_at(X, [X], 1).
+element_at(X, [X|_], 1).
+element_at(X, [_|T], N) :-
+  N > 0,
+  M is N-1,
+  element_at(X, T, M).
 
 :- begin_tests(problems_99_3_element_at).
 
 test(empty_list, fail) :-
   element_at(_, [], _).
 
-test(single_element_list, X = a) :-
+test(single_element_list, true(X = a)) :-
   element_at(X, [a], 1).
 
-test(single_element_list_multi_modal, Y = [X,X], nodet) :-
-    element_at(X, Y, _).
+test(single_element_list_multi_modal, true(Y = [X])) :-
+  element_at(X, Y, _).
+
+test(single_element_list, true(X = b)) :-
+  element_at(X, [a, b, c], 2).
 
 :- end_tests(problems_99_3_element_at).
