@@ -16,6 +16,6 @@ path(A, B, []) :-
 
 path(A, C, [X | XS]) :-
   X = con(A, B),
-  con(A, B),
+  call(X),
   path(B, C, XS),
   not(member(X, XS)).
