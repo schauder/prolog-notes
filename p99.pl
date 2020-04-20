@@ -1,3 +1,6 @@
+% The last element of a list with a single element is that element.
+% The last element of a longer list is the same as the last element of an empty list.
+
 my_last(X, [X]).
 
 my_last(X, [_|YS]) :-
