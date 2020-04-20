@@ -45,3 +45,22 @@ test(finds_lists_with_second_to_last_constant, true(L = [_, _, a, b]), nodet) :-
   second_to_last(a, L).
 
 :- end_tests(problems_99_2_second_to_last).
+
+% The first element of a one element list is the element.
+% The n-th element of a longer list is the n-1 element of a list without the head.
+% Easy.
+
+element_at(X, [X], 1).
+
+:- begin_tests(problems_99_3_element_at).
+
+test(empty_list, fail) :-
+  element_at(_, [], _).
+
+test(single_element_list, X = a) :-
+  element_at(X, [a], 1).
+
+test(single_element_list_multi_modal, Y = [X,X], nodet) :-
+    element_at(X, Y, _).
+
+:- end_tests(problems_99_3_element_at).
