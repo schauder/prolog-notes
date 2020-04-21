@@ -74,14 +74,11 @@ test(single_element_list, true(X = b)) :-
 % the number of elements of an empty list is 0.
 % the number of elements of a longer list is 1 + number of elements of the list without its head.
 
-number_of_elements(T, N) :-
-  number_of_elements(T, N, 0).
+number_of_elements([], 0).
 
-number_of_elements([], Acc, Acc).
-number_of_elements([_|T], N, Acc) :-
-  NewAcc is Acc + 1,
-  number_of_elements(T, N, NewAcc).
-
+number_of_elements([_|T], N) :-
+  number_of_elements(T, M),
+  N is M + 1.
 
 
 :- begin_tests(problems_99_4_number_of_elements).
