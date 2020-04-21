@@ -70,3 +70,29 @@ test(single_element_list, true(X = b)) :-
   element_at(X, [a, b, c], 2).
 
 :- end_tests(problems_99_3_element_at).
+
+% the number of elements of an empty list is 0.
+% the number of elements of a longer list is 1 + number of elements of the list without its head.
+
+number_of_elements(T, N) :-
+  number_of_elements(T, N, 0).
+
+number_of_elements([], Acc, Acc).
+number_of_elements([_|T], N, Acc) :-
+  NewAcc is Acc + 1,
+  number_of_elements(T, N, NewAcc).
+
+
+
+:- begin_tests(problems_99_4_number_of_elements).
+
+  test(empty_list, true(X=0)) :-
+    number_of_elements([], X).
+
+  test(empty_list_modal, true(X = [])) :-
+    number_of_elements(X, 0).
+
+  test(long_list, true(X = 3)) :-
+    number_of_elements([a, b, c], X).
+
+:- end_tests(problems_99_4_number_of_elements).
