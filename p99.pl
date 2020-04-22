@@ -83,13 +83,43 @@ number_of_elements([_|T], N) :-
 
 :- begin_tests(problems_99_4_number_of_elements).
 
-  test(empty_list, true(X=0)) :-
-    number_of_elements([], X).
+test(empty_list, true(X=0)) :-
+  number_of_elements([], X).
 
-  test(empty_list_modal, true(X = [])) :-
-    number_of_elements(X, 0).
+test(empty_list_modal, true(X = [])) :-
+  number_of_elements(X, 0).
 
-  test(long_list, true(X = 3)) :-
-    number_of_elements([a, b, c], X).
+test(long_list, true(X = 3)) :-
+  number_of_elements([a, b, c], X).
 
 :- end_tests(problems_99_4_number_of_elements).
+
+% the reverse of a list is the with 1 element or less is the list itself.
+% two longer lists are the reverse of each other if
+% the reverse of the tail of the first list prepended with the Head of the first list.
+
+
+my_reverse(L, R) :-
+    my_reverse_(L, [], R).
+
+my_reverse_([], R, R) :- !.
+my_reverse_([H|T], Acc, R) :-
+    my_reverse_(T, [H|Acc], R).
+
+
+
+:- begin_tests('99 problems no 5 revers').
+
+test('empty list', true(X=[])) :-
+  my_reverse([], X).
+
+test('single element list', true(X = [a])) :-
+  my_reverse([a], X).
+
+test('long list', true(X = [c, b, a])) :-
+  my_reverse([a, b, c], X).
+
+test('long list', true(X = [c, b, a])) :-
+  my_reverse(X, [a, b, c]).
+
+:- end_tests('99 problems no 5 revers').
